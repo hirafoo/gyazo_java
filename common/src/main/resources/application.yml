@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost/gyazo
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password:
+logging:
+    file: /tmp/gyazo.log
+    level:
+        org.springframework.web: INFO
+image_base_dir: /usr/local/nginx/htdocs_gyazo/images/
+---
+spring:
+  profiles: local
+hoge: "hoge-local"
+admin_hoge: "admin-hoge-local"
+base_url: http://local.gyazo.example.com/
+admin_base_url: http://local.admin.gyazo.example.com/
+---
+spring:
+  profiles: production
+hoge: "hoge-production"
+admin_hoge: "admin-hoge-production"
+base_url: http://gyazo.example.com/
+admin_base_url: http://admin.gyazo.example.com/
