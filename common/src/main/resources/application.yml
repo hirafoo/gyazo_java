@@ -7,10 +7,24 @@ spring:
     username: root
     password:
 logging:
-    file: /tmp/gyazo.log
-    level:
-        org.springframework.web: INFO
+  file: /tmp/gyazo.log
+  level:
+    org.springframework.web: INFO
 image_base_dir: /usr/local/nginx/htdocs_gyazo/images/
+# https://github.com/tokuhirom/java-handbook/blob/master/spring/mybatis.md
+mybatis:
+  configuration:
+    # lower_case のカラム名を camelCase のプロパティにマッピングする
+    mapUnderscoreToCamelCase: true
+    defaultFetchSize: 100
+    defaultStatementTimeout: 30
+    # マッピング不能なフィールドがあったときの処理。
+    # NONE: 何もしない
+    # WARNING: WARN ログを出す(お勧め。org.apache.ibatis.session.AutoMappingUnknownColumnBehavior で WARN です)
+    # FAILING: Fail mapping (Throw SqlSessionException) (local 開発時のみオンにすると良いでしょう)
+    autoMappingUnknownColumnBehavior: FAILING
+  # タイプハンドラの適用
+  type-handlers-package: com.example.typehandler
 ---
 spring:
   profiles: local
