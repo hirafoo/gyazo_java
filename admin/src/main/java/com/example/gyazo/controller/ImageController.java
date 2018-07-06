@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,12 +32,19 @@ public class ImageController {
         return "image/index";
     }
 
-    //    @RequestMapping(value="/image/detail", method = RequestMethod.GET)
-    //    public String detail(@RequestParam(value="id") Integer id, Model model) {
-    @RequestMapping("/image/detail/{id}")
-    public String detail(@PathVariable int id, Model model) {
+    //@RequestMapping("/image/detail/{id}")
+    //public String detail(@PathVariable int id, Model model) {
+    @RequestMapping(value="/image/detail", method = RequestMethod.GET)
+    public String detail(@RequestParam(value="id") Integer id, Model model) {
         final Image image = imageService.selectOne(id);
         model.addAttribute("image", image);
         return "image/detail";
+    }
+
+    @RequestMapping("/image/delete/{id}")
+    public String delete(@PathVariable int id, Model model) {
+        final Image image = imageService.selectOne(id);
+        imageService.delete(id);
+        return "redirect:/image/";
     }
 }
